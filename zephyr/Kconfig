@@ -6,10 +6,16 @@ config ZEPHYR_LZ4_MODULE
 
 menuconfig LZ4
 	bool "Lz4 data compression and decompression"
+	default y if RAM_LZ4_DECOMPRESSOR
 	help
 	  This option enables lz4 compression & decompression library
 	  support.
 if LZ4
+
+config LZ4_AUTO_ENABLE_FRAME_FOR_RAM_DISK
+	bool "Auto enable frame support if ramdisk decompression enabled"
+	select LZ4_FRAME_SUPPORT
+	default y if RAM_LZ4_DECOMPRESSOR
 
 config LZ4_MEMORY_USAGE
 	int "Lz4 memory usage"
